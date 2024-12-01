@@ -8,6 +8,8 @@ typedef struct {
 
 typedef unsigned char HandSize;
 
+void CreateDeck(Card* deck);
 void AddToHand(Card hand[], HandSize* handSize);
+
 
 #endif // CARDS_H
