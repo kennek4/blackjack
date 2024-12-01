@@ -1,7 +1,8 @@
 CC:=gcc
 CFLAGS:=-std=c17 -Wall 
-PROJECT:=app.out
+DEBUG_FLAGS:=--read-inline-info=yes 
 
+PROJECT:=app.out
 SRC_FILES=$(wildcard src/*.c) 
 OBJ_FILES=$(SRC_FILES:.c=.o)
 
@@ -21,7 +22,10 @@ $(PROJECT): $(OBJ_FILES)
 	@echo "Creating binary...\n"
 	$(CC) $(CFLAGS) -o $@ $^
 
+debug:
+	valgrind $(DEBUG_FLAGS) ./$(PROJECT)
+
 clean: 
 	rm -rf $(PROJECT) $(OBJ_FILES)
 
-.PHONY: build clean all
+.PHONY: build clean all 

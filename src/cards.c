@@ -7,60 +7,33 @@
 #define DECK_SIZE 52
 #define CARDS_PER_SUIT 13
 
-enum Suit{
-  CLUBS = 1,
-  SPADES,
-  HEARTS,
-  DIAMONDS,
-};
-
-void CreateDealerDeck(Card* deck) {
-
+void CreateCards(Deck* deck, int suit) {
   Card* card = NULL;
   card = (Card*) malloc(sizeof(Card) * 1);
 
-  int suit, value;
+  int i;
+  
+  for (i = 0; i < CARDS_PER_SUIT; i++) {
+    card->suit = suit; 
+    card->value = i;
 
-  // Create all cards per suit
-  for (suit = CLUBS; suit <= DIAMONDS; suit++) {
-
-    card->suit = suit;
-
-    // Add special cards (Ace and Faces)
-    for (value = 0; value < 4; value ++) {
-      if (value == 0) {
-        card->value = 0; // Ace
-      } else {
-        card->value = 10;
-      }
-
-      deck[suit * value] = *card;
+    switch (suit) { 
+      case 1: // CLUBS
+        deck->clubs[i] = *card; 
+        break;
+      case 2: // SPADES 
+        deck->spades[i] = *card; 
+        break;
+      case 3: // HEARTS 
+        deck->hearts[i] = *card; 
+        break;
+      case 4: // DIAMONDS 
+        deck->diamonds[i] = *card; 
+        break;
     }
-    
-    // Add numbered cards 
-    for (value = 4; value < CARDS_PER_SUIT; value++) {
-      printf("%d\n", value);  
-    }
-  } 
+  }
 
   free(card);
   card = NULL;
 }
 
-void AddToHand(Card hand[], HandSize* handSize) {
-
-  Card newCard;
-  newCard.value = 21;
-  newCard.suit = CLUBS; 
-
-  if ((*handSize + 1) < MAX_HAND_SIZE) {
-
-    printf("Hand Size before: %d\n", *handSize);
-    hand[*handSize + 1] = newCard; 
-    *handSize += 1;
-    printf("Hand Size after: %d\n", *handSize);
-
-    printf("Added new card to player hand\n");
-  }
-
-}
